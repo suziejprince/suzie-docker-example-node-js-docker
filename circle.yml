@@ -6,11 +6,8 @@ dependencies:
   cache_directories:
     - "~/docker"
   override:
-    - docker info
-    - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
     - docker build -t suziejprince/suzie-docker-example-node-docker-example .
-    - mkdir -p ~/docker; docker save suziejprince/suzie-docker-example-node-docker-example > ~/docker/image.tar
-
+    
 test:
   override:
     - docker run -d -p 5000:5000 suziejprince/suzie-docker-example-node-docker-example; sleep 10
