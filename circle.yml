@@ -1,3 +1,19 @@
 machine:
   services:
     - docker
+   
+   
+dependencies:
+  override: 
+      - docker build -t suziejprince/suzie-docker-example-node-docker-example .
+test
+ override:
+      - docker run -d -p 5000:5000 suziejprince/suzie-docker-example-node-docker-example; sleep 3
+      - curl --fail http://localhost:5000
+
+deployment
+hub:
+  branch: master
+  commands:
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+    - docker push suziejprince/suzie-docker-example-node-docker-example
